@@ -10,6 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
         updateTaskNumbers();
     });
 
+    function formatDate(date) {
+        return date.toLocaleDateString('pt-BR') + ' ' + date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    }
+
     function addTask(text) {
         if (!text) return;
         const li = document.createElement('li');
@@ -18,7 +22,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const span = document.createElement('span');
         span.textContent = text;
         span.style.flex = '1';
-        li.appendChild(span);
+
+        // Data de criação
+        const createdAt = new Date();
+        const dateInfo = document.createElement('small');
+        dateInfo.className = 'text-muted ms-2';
+        dateInfo.textContent = `(Criada: ${formatDate(createdAt)})`;
+
+        // Container para texto e datas
+        const contentDiv = document.createElement('div');
+        contentDiv.style.flex = '1';
+        contentDiv.appendChild(span);
+        contentDiv.appendChild(dateInfo);
+
+        li.appendChild(contentDiv);
 
         // Botões de ação
         const btnGroup = document.createElement('div');
@@ -32,6 +49,20 @@ document.addEventListener('DOMContentLoaded', function() {
         doneBtn.onclick = function() {
             li.classList.toggle('list-group-item-success');
             span.style.textDecoration = li.classList.contains('list-group-item-success') ? 'line-through' : 'none';
+            if (li.classList.contains('list-group-item-success')) {
+                // Adiciona data de conclusão
+                if (!li.querySelector('.completed-date')) {
+                    const completedAt = new Date();
+                    const completedInfo = document.createElement('small');
+                    completedInfo.className = 'text-success ms-2 completed-date';
+                    completedInfo.textContent = `(Concluída: ${formatDate(completedAt)})`;
+                    contentDiv.appendChild(completedInfo);
+                }
+            } else {
+                // Remove data de conclusão se desmarcar
+                const completedInfo = li.querySelector('.completed-date');
+                if (completedInfo) completedInfo.remove();
+            }
         };
         btnGroup.appendChild(doneBtn);
 
@@ -45,9 +76,10 @@ document.addEventListener('DOMContentLoaded', function() {
             li.classList.add('editing');
             const editInput = document.createElement('input');
             editInput.type = 'text';
-            editInput.value = span.textContent;
+            // Remove numeração ao editar
+            editInput.value = span.textContent.replace(/^\d+\.\s/, '');
             editInput.className = 'form-control form-control-sm me-2';
-            li.insertBefore(editInput, span);
+            contentDiv.insertBefore(editInput, span);
             span.style.display = 'none';
             editInput.focus();
 
@@ -55,19 +87,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (ev.key === 'Enter') {
                     span.textContent = editInput.value.trim() || span.textContent;
                     span.style.display = '';
-                    li.removeChild(editInput);
+                    contentDiv.removeChild(editInput);
                     li.classList.remove('editing');
                     updateTaskNumbers();
                 }
                 if (ev.key === 'Escape') {
                     span.style.display = '';
-                    li.removeChild(editInput);
+                    contentDiv.removeChild(editInput);
                     li.classList.remove('editing');
                 }
             };
             editInput.onblur = function() {
                 span.style.display = '';
-                li.removeChild(editInput);
+                contentDiv.removeChild(editInput);
                 li.classList.remove('editing');
             };
         };
