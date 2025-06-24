@@ -29,11 +29,17 @@ document.addEventListener('DOMContentLoaded', function() {
         dateInfo.className = 'text-muted ms-2';
         dateInfo.textContent = `(Criada: ${formatDate(createdAt)})`;
 
+        // Aviso pendente
+        const pendente = document.createElement('span');
+        pendente.className = 'ms-2 text-danger fw-bold pendente-label';
+        pendente.textContent = 'pendente';
+
         // Container para texto e datas
         const contentDiv = document.createElement('div');
         contentDiv.style.flex = '1';
         contentDiv.appendChild(span);
         contentDiv.appendChild(dateInfo);
+        contentDiv.appendChild(pendente);
 
         li.appendChild(contentDiv);
 
@@ -58,10 +64,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     completedInfo.textContent = `(Concluída: ${formatDate(completedAt)})`;
                     contentDiv.appendChild(completedInfo);
                 }
+                // Remove aviso pendente
+                pendente.style.display = 'none';
             } else {
                 // Remove data de conclusão se desmarcar
                 const completedInfo = li.querySelector('.completed-date');
                 if (completedInfo) completedInfo.remove();
+                // Mostra aviso pendente novamente
+                pendente.style.display = '';
             }
         };
         btnGroup.appendChild(doneBtn);
