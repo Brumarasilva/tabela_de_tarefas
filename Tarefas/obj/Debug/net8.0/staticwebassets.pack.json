@@ -5,12 +5,16 @@
       "PackagePath": "staticwebassets\\Tarefas.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\Alunos\\Documents\\bruna\\tabela_de_tarefas\\Tarefas\\wwwroot\\css\\site.css",
-      "PackagePath": "staticwebassets\\css\\site.css"
-    },
-    {
       "Id": "C:\\Users\\Alunos\\Documents\\bruna\\tabela_de_tarefas\\Tarefas\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Alunos\\Documents\\bruna\\tabela_de_tarefas\\Tarefas\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\Alunos\\Documents\\bruna\\tabela_de_tarefas\\Tarefas\\wwwroot\\js\\script.js",
+      "PackagePath": "staticwebassets\\js\\script.js"
     },
     {
       "Id": "C:\\Users\\Alunos\\Documents\\bruna\\tabela_de_tarefas\\Tarefas\\wwwroot\\js\\site.js",
@@ -243,6 +247,10 @@
     {
       "Id": "C:\\Users\\Alunos\\Documents\\bruna\\tabela_de_tarefas\\Tarefas\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "C:\\Users\\Alunos\\Documents\\bruna\\tabela_de_tarefas\\Tarefas\\wwwroot\\style.css",
+      "PackagePath": "staticwebassets\\style.css"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.Tarefas.Microsoft.AspNetCore.StaticWebAssets.props",

@@ -1,0 +1,26 @@
+@model Tarefas.Models.Tarefa
+
+@{
+    ViewData["Title"] = "Excluir Tarefa";
+}
+
+<h2>Excluir Tarefa</h2>
+
+<h4>Tem certeza que deseja excluir esta tarefa?</h4>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Descrição</dt>
+        <dd class="col-sm-10">@Model.Descricao</dd>
+        <dt class="col-sm-2">Concluída</dt>
+        <dd class="col-sm-10">@(Model.Concluida ? "Sim" : "Não")</dd>
+        <dt class="col-sm-2">Criada Em</dt>
+        <dd class="col-sm-10">@Model.CriadaEm.ToShortDateString()</dd>
+        <dt class="col-sm-2">Concluída Em</dt>
+        <dd class="col-sm-10">@(Model.ConcluidaEm.HasValue ? Model.ConcluidaEm.Value.ToShortDateString() : "-")</dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Excluir" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
