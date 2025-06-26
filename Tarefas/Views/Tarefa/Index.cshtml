@@ -27,7 +27,11 @@
             {
                 <tr>
                     <td>@item.Descricao</td>
-                    <td>@(item.Concluida ? "Sim" : "Não")</td>
+                    <td>
+                        @Html.Raw(item.Concluida 
+                            ? "<span style='color: #198754; font-weight: bold;'>Sim</span>" 
+                            : "<span style='color: #fd7e14; font-weight: bold;'>Em andamento</span>")
+                    </td>
                     <td>@item.CriadaEm.ToShortDateString()</td>
                     <td>@(item.ConcluidaEm.HasValue ? item.ConcluidaEm.Value.ToShortDateString() : "-")</td>
                     <td>
