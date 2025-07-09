@@ -9,16 +9,8 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\Alunos\\Documents\\bruna\\tabela_de_tarefas\\Tarefas\\wwwroot\\index.html",
-      "PackagePath": "staticwebassets\\index.html"
-    },
-    {
       "Id": "C:\\Users\\Alunos\\Documents\\bruna\\tabela_de_tarefas\\Tarefas\\wwwroot\\js\\script.js",
       "PackagePath": "staticwebassets\\js\\script.js"
-    },
-    {
-      "Id": "C:\\Users\\Alunos\\Documents\\bruna\\tabela_de_tarefas\\Tarefas\\wwwroot\\js\\site.js",
-      "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
       "Id": "C:\\Users\\Alunos\\Documents\\bruna\\tabela_de_tarefas\\Tarefas\\wwwroot\\lib\\bootstrap\\LICENSE",

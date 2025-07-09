@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "IfQ6ge8A4QvMYanwQqCDxzWcpCFvOq+CvOl/WNfUnng=",
+  "Hash": "Naq+JRQA8Zs2wZzjRepA/i9mGmaDltEvGYinOL1jj10=",
   "Source": "Tarefas",
   "BasePath": "_content/Tarefas",
   "Mode": "Default",
@@ -74,25 +74,6 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\Alunos\\Documents\\bruna\\tabela_de_tarefas\\Tarefas\\wwwroot\\index.html",
-      "SourceId": "Tarefas",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alunos\\Documents\\bruna\\tabela_de_tarefas\\Tarefas\\wwwroot\\",
-      "BasePath": "_content/Tarefas",
-      "RelativePath": "index.html",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\index.html"
-    },
-    {
       "Identity": "C:\\Users\\Alunos\\Documents\\bruna\\tabela_de_tarefas\\Tarefas\\wwwroot\\js\\script.js",
       "SourceId": "Tarefas",
       "SourceType": "Discovered",
@@ -110,25 +91,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\script.js"
-    },
-    {
-      "Identity": "C:\\Users\\Alunos\\Documents\\bruna\\tabela_de_tarefas\\Tarefas\\wwwroot\\js\\site.js",
-      "SourceId": "Tarefas",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Alunos\\Documents\\bruna\\tabela_de_tarefas\\Tarefas\\wwwroot\\",
-      "BasePath": "_content/Tarefas",
-      "RelativePath": "js/site.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
       "Identity": "C:\\Users\\Alunos\\Documents\\bruna\\tabela_de_tarefas\\Tarefas\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",

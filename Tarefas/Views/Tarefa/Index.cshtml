@@ -15,18 +15,30 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th>Favorita</th>
                     <th>Descrição</th>
                     <th>Concluída</th>
                     <th>Criada Em</th>
                     <th>Concluída Em</th>
-                    <th></th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.Descricao</td>
+                    <td class="text-center">
+                        @if (item.Favorita)
+                        {
+                            <i class="bi bi-star-fill" style="color: black;"></i>
+                        }
+                    </td>
+                    <td>
+                        <form asp-action="ToggleConcluida" asp-route-id="@item.Id" method="post" style="display:inline;">
+                            <input type="checkbox" onchange="this.form.submit()" @(item.Concluida ? "checked" : "") />
+                            <span style="@(item.Concluida ? "text-decoration: line-through; color: #888;" : "")">@item.Descricao</span>
+                        </form>
+                    </td>
                     <td>
                         @Html.Raw(item.Concluida 
                             ? "<span style='color: #198754; font-weight: bold;'>Sim</span>" 

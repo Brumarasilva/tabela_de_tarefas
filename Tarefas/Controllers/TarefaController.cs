@@ -77,5 +77,32 @@ namespace Tarefas.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+        [HttpPost]
+        public IActionResult ToggleFavorita(int id)
+        {
+            var tarefa = _context.Tarefas.Find(id);
+            if (tarefa == null)
+                return NotFound();
+            tarefa.Favorita = !tarefa.Favorita;
+            _context.Tarefas.Update(tarefa);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public IActionResult ToggleConcluida(int id)
+        {
+            var tarefa = _context.Tarefas.Find(id);
+            if (tarefa == null)
+                return NotFound();
+            tarefa.Concluida = !tarefa.Concluida;
+            if (tarefa.Concluida)
+                tarefa.ConcluidaEm = DateTime.Now;
+            else
+                tarefa.ConcluidaEm = null;
+            _context.Tarefas.Update(tarefa);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
