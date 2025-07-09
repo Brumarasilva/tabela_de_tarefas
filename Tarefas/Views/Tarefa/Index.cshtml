@@ -17,6 +17,7 @@
                 <tr>
                     <th>Favorita</th>
                     <th>Descrição</th>
+                    <th>Categoria</th>
                     <th>Concluída</th>
                     <th>Criada Em</th>
                     <th>Concluída Em</th>
@@ -38,6 +39,16 @@
                             <input type="checkbox" onchange="this.form.submit()" @(item.Concluida ? "checked" : "") />
                             <span style="@(item.Concluida ? "text-decoration: line-through; color: #888;" : "")">@item.Descricao</span>
                         </form>
+                    </td>
+                    <td>
+                        @if (string.IsNullOrEmpty(item.Categoria))
+                        {
+                            <span class="text-muted">Nenhuma categoria</span>
+                        }
+                        else
+                        {
+                            @item.Categoria
+                        }
                     </td>
                     <td>
                         @Html.Raw(item.Concluida 
