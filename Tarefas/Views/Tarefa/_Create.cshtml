@@ -1,0 +1,44 @@
+@model Tarefas.Models.Tarefa
+
+<div class="modal-header border-0">
+    <h5 class="modal-title w-100 text-center" id="modalNovaTarefaLabel">Adicionar Tarefa</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <div class="mb-3">
+        <label class="form-label fw-bold">Título</label>
+        <input asp-for="Descricao" class="form-control" placeholder="Título da tarefa" style="background: #2d223a; color: #fff; border-radius: 10px;" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label fw-bold">Data</label>
+        <div class="d-flex gap-2">
+            <input asp-for="DataExecucao" class="form-control" type="date" style="background: #2d223a; color: #fff; border-radius: 10px;" />
+            <input asp-for="DataExecucao" class="form-control" type="time" style="background: #2d223a; color: #fff; border-radius: 10px;" />
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label fw-bold">Categoria</label>
+        <div class="d-flex gap-3">
+            <label class="d-flex align-items-center gap-2">
+                <input type="radio" name="Categoria" value="trabalho" class="form-check-input" style="background:#a96fa6; border-color:#a96fa6;" />
+                <span style="color:#a96fa6;">Trabalho</span>
+            </label>
+            <label class="d-flex align-items-center gap-2">
+                <input type="radio" name="Categoria" value="estudo" class="form-check-input" style="background:#4e9a51; border-color:#4e9a51;" />
+                <span style="color:#4e9a51;">Estudo</span>
+            </label>
+            <label class="d-flex align-items-center gap-2">
+                <input type="radio" name="Categoria" value="pessoal" class="form-check-input" style="background:#3b5ca6; border-color:#3b5ca6;" />
+                <span style="color:#3b5ca6;">Pessoal</span>
+            </label>
+            <label class="d-flex align-items-center gap-2">
+                <input type="radio" name="Categoria" value="casa" class="form-check-input" style="background:#b97a3a; border-color:#b97a3a;" />
+                <span style="color:#b97a3a;">Casa</span>
+            </label>
+        </div>
+    </div>
+</div>
+<div class="modal-footer border-0 d-flex justify-content-between">
+    <button type="button" class="btn btn-link text-light" data-bs-dismiss="modal">Cancelar</button>
+    <button type="submit" class="btn btn-light" style="border-radius: 10px;">Adicionar</button>
+</div>

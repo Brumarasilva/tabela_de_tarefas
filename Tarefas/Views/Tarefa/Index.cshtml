@@ -11,8 +11,19 @@
 <main>
     <div class="container mt-4">
         <h2 class="mb-4">Minhas Tarefas</h2>
-        <a asp-action="Create" class="btn btn-primary mb-3">Adicionar Nova Tarefa</a>
-        <div class="list-group list-group-flush">
+        <button class="btn btn-primary mb-3 float-end" id="btnAbrirModalTarefa" type="button" data-bs-toggle="modal" data-bs-target="#modalNovaTarefa">
+            <i class="bi bi-plus"></i>
+        </button>
+        <!-- Modal de Nova Tarefa -->
+        <div class="modal fade" id="modalNovaTarefa" tabindex="-1" aria-labelledby="modalNovaTarefaLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content" style="background: #231b2e; color: #fff; border-radius: 20px;">
+                    <form asp-action="Create" method="post">
+                        <partial name="_Create" model="new Tarefas.Models.Tarefa()" />
+                    </form>
+                </div>
+            </div>
+        </div>
             @foreach (var item in Model)
             {
                 var isAtrasada = item.DataExecucao.HasValue && item.DataExecucao.Value < DateTime.Now && !item.Concluida;
