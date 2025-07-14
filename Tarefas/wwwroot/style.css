@@ -1,3 +1,19 @@
+body.theme-dark {
+    background: #231b2e !important;
+    color: #fff !important;
+}
+body.theme-light {
+    background: #f8f9fa !important;
+    color: #231b2e !important;
+}
+body.theme-light .modal-content {
+    background: #fff !important;
+    color: #231b2e !important;
+}
+body.theme-dark .modal-content {
+    background: #231b2e !important;
+    color: #fff !important;
+}
 .navbar {
     background: #007bff;
     padding: 10px 0;

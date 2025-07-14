@@ -10,11 +10,8 @@
         <input asp-for="Descricao" class="form-control" placeholder="Título da tarefa" style="background: #2d223a; color: #fff; border-radius: 10px;" />
     </div>
     <div class="mb-3">
-        <label class="form-label fw-bold">Data</label>
-        <div class="d-flex gap-2">
-            <input asp-for="DataExecucao" class="form-control" type="date" style="background: #2d223a; color: #fff; border-radius: 10px;" />
-            <input asp-for="DataExecucao" class="form-control" type="time" style="background: #2d223a; color: #fff; border-radius: 10px;" />
-        </div>
+        <label class="form-label fw-bold">Data e Hora</label>
+        <input asp-for="DataExecucao" class="form-control" type="datetime-local" style="background: #2d223a; color: #fff; border-radius: 10px;" />
     </div>
     <div class="mb-3">
         <label class="form-label fw-bold">Categoria</label>

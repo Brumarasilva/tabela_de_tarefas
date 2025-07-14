@@ -1,4 +1,37 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Alternância de tema escuro/claro
+    const body = document.body;
+    const btnToggleTheme = document.getElementById('btnToggleTheme');
+    const iconTheme = document.getElementById('iconTheme');
+    function setTheme(theme) {
+        if (theme === 'light') {
+            body.classList.add('theme-light');
+            body.classList.remove('theme-dark');
+            if (iconTheme) {
+                iconTheme.classList.remove('bi-moon');
+                iconTheme.classList.add('bi-sun');
+            }
+            document.documentElement.style.setProperty('--icon-color', '#231b2e');
+        } else {
+            body.classList.add('theme-dark');
+            body.classList.remove('theme-light');
+            if (iconTheme) {
+                iconTheme.classList.remove('bi-sun');
+                iconTheme.classList.add('bi-moon');
+            }
+            document.documentElement.style.setProperty('--icon-color', '#fff');
+        }
+        localStorage.setItem('theme', theme);
+    }
+    if (btnToggleTheme) {
+        btnToggleTheme.addEventListener('click', function() {
+            const current = body.classList.contains('theme-light') ? 'light' : 'dark';
+            setTheme(current === 'light' ? 'dark' : 'light');
+        });
+        // Carregar preferência
+        const saved = localStorage.getItem('theme');
+        setTheme(saved === 'light' ? 'light' : 'dark');
+    }
     const form = document.getElementById('task-form');
     const input = document.getElementById('task-input');
     const list = document.getElementById('task-list');

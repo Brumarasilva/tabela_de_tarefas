@@ -9,11 +9,16 @@
 </header>
 
 <main>
-    <div class="container mt-4">
+    <div class="container mt-4" style="background: transparent;">
         <h2 class="mb-4">Minhas Tarefas</h2>
-        <button class="btn btn-primary mb-3 float-end" id="btnAbrirModalTarefa" type="button" data-bs-toggle="modal" data-bs-target="#modalNovaTarefa">
-            <i class="bi bi-plus"></i>
-        </button>
+        <div class="d-flex justify-content-end align-items-center mb-3 gap-3" style="position: relative;">
+            <button id="btnAbrirModalTarefa" type="button" data-bs-toggle="modal" data-bs-target="#modalNovaTarefa" style="background: transparent; border: none; box-shadow: none; color: var(--icon-color, #1b1717); font-size: 2rem; padding: 0.2em 0.5em;">
+                <i class="bi bi-plus"></i>
+            </button>
+            <button id="btnToggleTheme" type="button" style="background: transparent; border: none; box-shadow: none; color: var(--icon-color, black); font-size: 2rem;">
+                <i id="iconTheme" class="bi bi-moon"></i>
+            </button>
+        </div>
         <!-- Modal de Nova Tarefa -->
         <div class="modal fade" id="modalNovaTarefa" tabindex="-1" aria-labelledby="modalNovaTarefaLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -29,6 +34,7 @@
                 var isAtrasada = item.DataExecucao.HasValue && item.DataExecucao.Value < DateTime.Now && !item.Concluida;
                 var isHoje = item.DataExecucao.HasValue && item.DataExecucao.Value.Date == DateTime.Now.Date;
                 var isAmanha = item.DataExecucao.HasValue && item.DataExecucao.Value.Date == DateTime.Now.AddDays(1).Date;
+                var isOntem = item.DataExecucao.HasValue && item.DataExecucao.Value.Date == DateTime.Now.AddDays(-1).Date;
                 string corCategoria = item.Categoria switch {
                     "trabalho" => "#a96fa6",
                     "estudo" => "#4e9a51",
@@ -53,8 +59,8 @@
                                 <i class="bi bi-calendar me-1" style="font-size: 1em;"></i>
                                 @if (item.DataExecucao.HasValue)
                                 {
-                                    <span style="@(isAtrasada ? "color: #dc3545; font-weight: bold;" : isHoje ? "color: #ffc107; font-weight: bold;" : isAmanha ? "color: #198754; font-weight: bold;" : "")">
-                                        @(isHoje ? "Hoje, " : isAmanha ? "Amanhã, " : item.DataExecucao.Value < DateTime.Now ? "" : item.DataExecucao.Value.ToString("dd MMM, "))
+                                    <span style="@(isAtrasada ? "color: #dc3545; font-weight: bold;" : isHoje ? "color: #ffc107; font-weight: bold;" : isAmanha ? "color: #198754; font-weight: bold;" : isOntem ? "color: #6c757d; font-weight: bold;" : "")">
+                                        @(isHoje ? "Hoje, " : isAmanha ? "Amanhã, " : isOntem ? "Ontem, " : item.DataExecucao.Value.ToString("dd MMM, "))
                                         @item.DataExecucao.Value.ToString("HH:mm")
                                     </span>
                                 }
