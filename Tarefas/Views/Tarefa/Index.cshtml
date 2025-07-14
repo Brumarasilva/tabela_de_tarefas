@@ -8,86 +8,180 @@
     
 </header>
 
+
 <main>
-    <div class="container mt-4" style="background: transparent;">
-        <h2 class="mb-4">Minhas Tarefas</h2>
-        <div class="d-flex justify-content-end align-items-center mb-3 gap-3" style="position: relative;">
-            <button id="btnAbrirModalTarefa" type="button" data-bs-toggle="modal" data-bs-target="#modalNovaTarefa" style="background: transparent; border: none; box-shadow: none; color: var(--icon-color, #1b1717); font-size: 2rem; padding: 0.2em 0.5em;">
-                <i class="bi bi-plus"></i>
-            </button>
-            <button id="btnToggleTheme" type="button" style="background: transparent; border: none; box-shadow: none; color: var(--icon-color, black); font-size: 2rem;">
-                <i id="iconTheme" class="bi bi-moon"></i>
-            </button>
-        </div>
-        <!-- Modal de Nova Tarefa -->
-        <div class="modal fade" id="modalNovaTarefa" tabindex="-1" aria-labelledby="modalNovaTarefaLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content" style="background: #231b2e; color: #fff; border-radius: 20px;">
-                    <form asp-action="Create" method="post">
-                        <partial name="_Create" model="new Tarefas.Models.Tarefa()" />
-                    </form>
+    <div class="d-flex" style="min-height: 100vh;">
+        <!-- Sidebar -->
+        <aside class="sidebar p-4" style="width: 260px; background: #18111c; color: #fff; border-radius: 0 32px 32px 0; box-shadow: 0 0 24px #0002; display: flex; flex-direction: column; gap: 24px;">
+            <h3 class="mb-4" style="font-weight: 700; letter-spacing: 1px;">Tarefas</h3>
+            <nav class="nav flex-column gap-2">
+                <a href="#" class="nav-link text-light d-flex align-items-center gap-2" style="font-size: 1.1em;"><i class="bi bi-star-fill" style="color: #ffc107;"></i> Importantes</a>
+                <a href="#" class="nav-link text-light d-flex align-items-center gap-2"><i class="bi bi-hourglass-split" style="color: #e57373;"></i> Atrasadas</a>
+                <a href="#" class="nav-link text-light d-flex align-items-center gap-2"><i class="bi bi-calendar-week" style="color: #64b5f6;"></i> Esta semana</a>
+                <a href="#" class="nav-link text-light d-flex align-items-center gap-2"><i class="bi bi-check-circle" style="color: #81c784;"></i> Concluídas</a>
+            </nav>
+            <div class="mt-4">
+                <div class="mb-2" style="font-weight: 600;">Categoria</div>
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge" style="background:#a96fa6; color:#fff; font-size:1em;">Trabalho</span>
+                    <span class="badge" style="background:#4e9a51; color:#fff; font-size:1em;">Estudo</span>
+                    <span class="badge" style="background:#3b5ca6; color:#fff; font-size:1em;">Pessoal</span>
+                    <span class="badge" style="background:#b97a3a; color:#fff; font-size:1em;">Casa</span>
                 </div>
             </div>
-        </div>
-            @foreach (var item in Model)
-            {
-                var isAtrasada = item.DataExecucao.HasValue && item.DataExecucao.Value < DateTime.Now && !item.Concluida;
-                var isHoje = item.DataExecucao.HasValue && item.DataExecucao.Value.Date == DateTime.Now.Date;
-                var isAmanha = item.DataExecucao.HasValue && item.DataExecucao.Value.Date == DateTime.Now.AddDays(1).Date;
-                var isOntem = item.DataExecucao.HasValue && item.DataExecucao.Value.Date == DateTime.Now.AddDays(-1).Date;
-                string corCategoria = item.Categoria switch {
-                    "trabalho" => "#a96fa6",
-                    "estudo" => "#4e9a51",
-                    "pessoal" => "#3b5ca6",
-                    "casa" => "#b97a3a",
-                    _ => "#888"
-                };
-                <div class="list-group-item d-flex align-items-center justify-content-between py-3 px-2" style="background: transparent; border: none;">
-                    <div class="d-flex align-items-center" style="min-width: 0;">
-                        <span class="me-3" style="font-size: 1.2em; min-width: 24px; text-align: center;">
-                            @if (item.Favorita)
-                            {
-                                <i class="bi bi-star-fill" style="color: #ffc107;"></i>
-                            }
-                        </span>
-                        <form asp-action="ToggleConcluida" asp-route-id="@item.Id" method="post" class="me-2" style="display:inline;">
-                            <input type="checkbox" onchange="this.form.submit()" @(item.Concluida ? "checked" : "") />
+        </aside>
+        <!-- Conteúdo principal -->
+        <div class="flex-grow-1 p-5" style="background: transparent;">
+            <div class="d-flex justify-content-end align-items-center mb-3 gap-3" style="position: relative;">
+                <button id="btnAbrirModalTarefa" type="button" data-bs-toggle="modal" data-bs-target="#modalNovaTarefa" style="background: transparent; border: none; box-shadow: none; color: var(--icon-color, #fff); font-size: 2rem; padding: 0.2em 0.5em;">
+                    <i class="bi bi-plus"></i>
+                </button>
+                <button id="btnToggleTheme" type="button" style="background: transparent; border: none; box-shadow: none; color: var(--icon-color, #fff); font-size: 2rem;">
+                    <i id="iconTheme" class="bi bi-moon"></i>
+                </button>
+            </div>
+            <!-- Modal de Nova Tarefa -->
+            <div class="modal fade" id="modalNovaTarefa" tabindex="-1" aria-labelledby="modalNovaTarefaLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content" style="background: #231b2e; color: #fff; border-radius: 20px; min-width: 480px;">
+                        <form asp-action="Create" method="post">
+                            <partial name="_Create" model="new Tarefas.Models.Tarefa()" />
                         </form>
-                        <div style="min-width: 0;">
-                            <span style="@(item.Concluida ? "text-decoration: line-through; color: #888; opacity: 0.7;" : "font-weight: 500;")">@item.Descricao</span>
-                            <div class="small mt-1 d-flex align-items-center">
-                                <i class="bi bi-calendar me-1" style="font-size: 1em;"></i>
-                                @if (item.DataExecucao.HasValue)
+                    </div>
+                </div>
+            </div>
+            <!-- Modal de Editar Tarefa será renderizado fora do main -->
+            <div id="modalEditarTarefaContainer"></div>
+            <div class="list-group mt-4" style="gap: 16px;">
+                @foreach (var item in Model)
+                {
+                    var isAtrasada = item.DataExecucao.HasValue && item.DataExecucao.Value < DateTime.Now && !item.Concluida;
+                    var isHoje = item.DataExecucao.HasValue && item.DataExecucao.Value.Date == DateTime.Now.Date;
+                    var isAmanha = item.DataExecucao.HasValue && item.DataExecucao.Value.Date == DateTime.Now.AddDays(1).Date;
+                    var isOntem = item.DataExecucao.HasValue && item.DataExecucao.Value.Date == DateTime.Now.AddDays(-1).Date;
+                    string corCategoria = item.Categoria switch {
+                        "trabalho" => "#a96fa6",
+                        "estudo" => "#4e9a51",
+                        "pessoal" => "#3b5ca6",
+                        "casa" => "#b97a3a",
+                        _ => "#888"
+                    };
+                    <div class="list-group-item d-flex align-items-center justify-content-between py-4 px-3" style="background: #20162a; border-radius: 16px; border: none; box-shadow: 0 0 12px #0001; margin-bottom: 8px;">
+                        <div class="d-flex align-items-center" style="min-width: 0; gap: 16px;">
+                            <span style="font-size: 1.5em; min-width: 32px; text-align: center;">
+                                @if (item.Favorita)
                                 {
-                                    <span style="@(isAtrasada ? "color: #dc3545; font-weight: bold;" : isHoje ? "color: #ffc107; font-weight: bold;" : isAmanha ? "color: #198754; font-weight: bold;" : isOntem ? "color: #6c757d; font-weight: bold;" : "")">
-                                        @(isHoje ? "Hoje, " : isAmanha ? "Amanhã, " : isOntem ? "Ontem, " : item.DataExecucao.Value.ToString("dd MMM, "))
-                                        @item.DataExecucao.Value.ToString("HH:mm")
-                                    </span>
+                                    <i class="bi bi-star-fill" style="color: #ffc107;"></i>
                                 }
-                                else
-                                {
-                                    <span class="text-muted">Sem data</span>
-                                }
+                            </span>
+                            <form asp-action="ToggleConcluida" asp-route-id="@item.Id" method="post" class="me-2" style="display:inline;">
+                                <input type="checkbox" onchange="this.form.submit()" @(item.Concluida ? "checked" : "") />
+                            </form>
+                            <div style="min-width: 0;">
+                                <span style="@(item.Concluida ? "text-decoration: line-through; color: #888; opacity: 0.7; font-size: 1.1em;" : "font-weight: 500; font-size: 1.2em; color: #fff;")">@item.Descricao</span>
+                                <div class="small mt-1 d-flex align-items-center gap-2">
+                                    <i class="bi bi-calendar" style="font-size: 1em; color: #fff;"></i>
+                                    @if (item.DataExecucao.HasValue)
+                                    {
+                                        <span style="@(isAtrasada ? "color: #dc3545; font-weight: bold;" : isHoje ? "color: #ffc107; font-weight: bold;" : isAmanha ? "color: #198754; font-weight: bold;" : isOntem ? "color: #6c757d; font-weight: bold;" : "color: #fff;")">
+                                            @(isHoje ? "Hoje, " : isAmanha ? "Amanhã, " : isOntem ? "Ontem, " : item.DataExecucao.Value.ToString("dd MMM, "))
+                                            @item.DataExecucao.Value.ToString("HH:mm")
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">Sem data</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            @if (!string.IsNullOrEmpty(item.Categoria))
+                            {
+                                <span class="badge" style="background:@corCategoria; color:#fff; font-weight:500; min-width:80px; font-size:1em;">@item.Categoria.First().ToString().ToUpper()@item.Categoria.Substring(1)</span>
+                            }
+                            <div class="dropdown">
+                                <button class="btn btn-link p-0 m-0 align-baseline" type="button" id="dropdownMenuButton-@item.Id" data-bs-toggle="dropdown" aria-expanded="false" style="font-size:1.5em; color:#fff;">
+                                    <i class="bi bi-three-dots-vertical"></i>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton-@item.Id" style="min-width: 120px;">
+                                    <li>
+                                        <a href="#" class="dropdown-item" title="Editar" onclick="abrirModalEditar(@item.Id); return false;">
+                                            <i class="bi bi-pencil" style="color:#1b170b; font-size:1.2em;"></i> Editar
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="dropdown-item" title="Excluir">
+                                            <i class="bi bi-trash" style="color:rgb(8, 4, 4); font-size:1.2em;"></i> Excluir
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex align-items-center gap-2">
-                        @if (!string.IsNullOrEmpty(item.Categoria))
-                        {
-                            <span class="badge" style="background:@corCategoria; color:#fff; font-weight:500; min-width:80px;">@item.Categoria.First().ToString().ToUpper()@item.Categoria.Substring(1)</span>
-                        }
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-link p-0 m-0 align-baseline" title="Editar">
-                            <i class="bi bi-pencil" style="color:#ffc107; font-size:1.2em;"></i>
-                        </a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-link p-0 m-0 align-baseline" title="Excluir">
-                            <i class="bi bi-trash" style="color:#dc3545; font-size:1.2em;"></i>
-                        </a>
-                    </div>
-                </div>
-            }
+                }
+            </div>
         </div>
     </div>
 </main>
+
+
+    <!-- Modal de Editar Tarefa (fora do fluxo principal, overlay real) -->
+    <div id="modalEditarTarefaContainer"></div>
+
+
+
+    <script>
+        function abrirModalEditar(id) {
+            fetch('/Tarefa/Edit/' + id)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('modalEditarTarefaContainer').innerHTML = html;
+                    var modalEl = document.getElementById('modalEditarTarefa');
+                    if (modalEl) {
+                        var modal = new bootstrap.Modal(modalEl);
+                        modal.show();
+                        document.body.classList.add('modal-open-custom');
+                        modalEl.addEventListener('hidden.bs.modal', function () {
+                            document.getElementById('modalEditarTarefaContainer').innerHTML = '';
+                            document.body.classList.remove('modal-open-custom');
+                        }, { once: true });
+                    }
+                })
+                .catch(function(error) {
+                    alert('Erro ao abrir modal de edição.');
+                });
+        }
+    </script>
+
+
+    <style>
+        /* Garante overlay real e impede scroll do body quando modal aberto */
+        .modal-open-custom {
+            overflow: hidden;
+        }
+        /* Corrige z-index e centralização do modal de edição */
+        #modalEditarTarefa {
+            display: block;
+            z-index: 1055;
+        }
+        .modal-backdrop.show {
+            opacity: 0.7;
+        }
+        /* Ajusta dropdown-menu para não ficar escuro no tema escuro */
+        .dropdown-menu {
+            background: #2d223a;
+            color: #fff;
+            border-radius: 12px;
+        }
+        .dropdown-item {
+            color: #fff;
+        }
+        .dropdown-item:hover {
+            background: #3b2a4a;
+            color: #ffc107;
+        }
+    </style>
 
 <footer>
 </footer>

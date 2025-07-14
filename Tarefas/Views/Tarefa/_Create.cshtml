@@ -1,7 +1,10 @@
 @model Tarefas.Models.Tarefa
 
+@{
+    var isEdicao = ViewData["TituloModal"]?.ToString() == "Editar Tarefa";
+}
 <div class="modal-header border-0">
-    <h5 class="modal-title w-100 text-center" id="modalNovaTarefaLabel">Adicionar Tarefa</h5>
+    <h5 class="modal-title w-100 text-center" id="modalNovaTarefaLabel">@(isEdicao ? "Editar Tarefa" : "Adicionar Tarefa")</h5>
     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
@@ -34,8 +37,4 @@
             </label>
         </div>
     </div>
-</div>
-<div class="modal-footer border-0 d-flex justify-content-between">
-    <button type="button" class="btn btn-link text-light" data-bs-dismiss="modal">Cancelar</button>
-    <button type="submit" class="btn btn-light" style="border-radius: 10px;">Adicionar</button>
 </div>
