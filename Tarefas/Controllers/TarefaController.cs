@@ -38,10 +38,19 @@ namespace Tarefas.Controllers
             return View(tarefa);
         }
 
+        // ✅ Corrigido: suporta modal via AJAX ou acesso direto
         public IActionResult Edit(int id)
         {
             var tarefa = _context.Tarefas.Find(id);
             if (tarefa == null) return NotFound();
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                // Retorna somente o modal, para AJAX
+                return PartialView("_EditModal", tarefa);
+            }
+
+            // Retorna a View completa (ex: se acessar diretamente /Tarefa/Edit/5)
             return View(tarefa);
         }
 
@@ -77,6 +86,7 @@ namespace Tarefas.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+
         [HttpPost]
         public IActionResult ToggleFavorita(int id)
         {
@@ -96,10 +106,7 @@ namespace Tarefas.Controllers
             if (tarefa == null)
                 return NotFound();
             tarefa.Concluida = !tarefa.Concluida;
-            if (tarefa.Concluida)
-                tarefa.ConcluidaEm = DateTime.Now;
-            else
-                tarefa.ConcluidaEm = null;
+            tarefa.ConcluidaEm = tarefa.Concluida ? DateTime.Now : null;
             _context.Tarefas.Update(tarefa);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));

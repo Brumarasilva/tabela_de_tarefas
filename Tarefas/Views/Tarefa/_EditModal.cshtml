@@ -1,0 +1,12 @@
+@model Tarefas.Models.Tarefa
+
+<div class="modal fade" id="modalEditarTarefa" tabindex="-1" aria-labelledby="modalEditarTarefaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background: #231b2e; color: #fff; border-radius: 20px; min-width: 480px;">
+            <form asp-action="Edit" method="post">
+                <input type="hidden" asp-for="Id" />
+                <partial name="_Create" model="Model" />
+            </form>
+        </div>
+    </div>
+</div>
